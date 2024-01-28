@@ -1,7 +1,3 @@
-import numpy as np
-from typing import *
-
-
 class Bath:
     def __init__(self,
                  bath_weight: int | float,
@@ -60,12 +56,16 @@ class Bath:
 
         if new_bath_weight < 0:
             raise ValueError('Bath PB must be non-negative.')
-        elif new_bath_weight > self.weight :
+        elif new_bath_weight > self.weight:
             raise ValueError('Aliquot weight cannot be greater than the bath weight.')
 
-        self.weight -= float(new_bath_weight)
+        aliquot = Bath(new_bath_weight, bath_nv=self.nv(), bath_pb=self.pb())
 
-        return Bath(new_bath_weight, bath_nv=self.nv(), bath_pb=self.pb())
+        self.pigment -= aliquot.pigment
+        self.binder -= aliquot.binder
+        self.weight -= aliquot.weight
+
+        return aliquot
 
     def add_bath(self,
                  *other_bath):
