@@ -5,7 +5,10 @@ from bath import Bath
 import tkinter as tk
 from scipy.optimize import minimize
 from adjustment import adjust_bath
+<<<<<<< HEAD
 
+=======
+>>>>>>> 48f74ee70e67f4e17cb7778cec88d3303b068234
 
 def interface_window():
     program_title = 'AutoPB'
