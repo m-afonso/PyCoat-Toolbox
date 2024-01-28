@@ -1,76 +1,98 @@
+from copy import copy
 import numpy as np
 from typing import *
+from bath import Bath
+import tkinter as tk
 
 
-class Bath:
-    def __init__(self,
-                 bath_weight: int | float,
-                 bath_nv: int | float,
-                 bath_pb: int | float):
+def optimize(target_bath: Bath,
+             initial_bath: Bath,
+             resin: Bath,
+             paste: Bath,
+             water: Bath,
+             target_weight: bool = True,
+             paste_min: int | float = 0):
 
-        if not isinstance(bath_weight, (int, float)):
-            raise TypeError('Bath weight must be an integer or float.')
+    return None
 
-        if not isinstance(bath_nv, (int, float)):
-            raise TypeError('Bath NV must be an integer or float.')
-        elif not 0 <= bath_nv <= 1:
-            raise ValueError('Bath NV must be between 0 and 1.')
 
-        if not isinstance(bath_pb, (int, float)):
-            raise TypeError('Bath PB must be an integer or float.')
-        elif bath_pb < 0:
-            raise ValueError('Bath PB must be non-negative.')
+def interface_window():
+    program_title = 'AutoPB'
+    version = 'v0.0.1'
+    release_date = '20240128'
 
-        self.weight = float(bath_weight)
-        self.pigment = float((bath_nv * bath_pb) / (1 + bath_pb)) * bath_weight
-        self.binder = float(bath_nv * bath_weight - self.pigment)
+    def on_submit():
+        for entry in entries:
+            print(entry.get())
 
-    def __str__(self):
-        return f'Weight: {self.weight}, NV: {self.nv():.2f}, PB: {self.pb():.2f}'
+    root = tk.Tk()
+    root.title(program_title)
 
-    def pb(self):
-        """
-        Calculates the Pigmento t Binder (P/B) ratio.
+    # Função para criar uma caixa com título, três labels e entries
+    def create_box(parent, title, labels):
+        box_frame = tk.Frame(parent, padx=10, pady=10, borderwidth=2, relief="solid")
 
-        :return: float
-        """
+        # Adiciona o título à caixa
+        title_label = tk.Label(box_frame, text=title, font=("Helvetica", 12, "bold"))
+        title_label.grid(row=0, column=0, columnspan=2, pady=5)
 
-        if self.binder == 0:
-            return 0
+        for i, label_text in enumerate(labels, start=1):
+            label = tk.Label(box_frame, text=label_text)
+            label.grid(row=i, column=0, sticky="e")
 
-        return self.pigment / self.binder
+            entry = tk.Entry(box_frame)
+            entry.grid(row=i, column=1, padx=5, pady=5)
 
-    def nv(self):
-        """
-        Calculates the Non-Volatile ratio.
-        :return: float
-        """
-        if self.weight == 0:
-            return 0
+            entries.append(entry)
 
-        return (self.pigment + self.binder) / self.weight
+        return box_frame
 
-    def remove_bath(self,
-                    new_bath_weight: int | float = 0):
-        """
-        Removes an aliquot of the bath.
-        :param new_bath_weight:
-        :return:
-        """
+    # Lista de rótulos e títulos para cada caixa
+    box_titles = ["Final Bath", "Initial Bath", "Paste", "Resin"]
+    box_labels = [
+        ["Weight", "NV", "P/B"],
+        ["Weight", "NV", "P/B"],
+        ["Weight", "Binder", "Pigment"],
+        ["Weight", "Binder", "Pigment"]
+    ]
 
-        if new_bath_weight < 0:
-            raise ValueError('Bath PB must be non-negative.')
-        elif new_bath_weight > self.weight :
-            raise ValueError('Aliquot weight cannot be greater than the bath weight.')
+    # Lista para armazenar as entries para facilitar o acesso posterior
+    entries = []
 
-        self.weight -= float(new_bath_weight)
+    # Criação das quatro caixas
+    for i, (title, labels) in enumerate(zip(box_titles, box_labels), start=1):
+        box = create_box(root, title, labels)
+        box.grid(row=0, column=(2 * i - 2), padx=10, pady=10)
 
-        return Bath(new_bath_weight, bath_nv=self.nv(), bath_pb=self.pb())
+        # Adicionar símbolo "+" entre as caixas, exceto após a última
+        if i < len(box_titles):
+            plus_label = tk.Label(root, text="+")
+            plus_label.grid(row=0, column=(2 * i - 1))
 
-    def add_bath(self,
-                 *other_bath):
+    # Botões
+    submit_button = tk.Button(root, text="Submit", command=on_submit)
+    submit_button.grid(row=1, column=0, columnspan=2, pady=10)
 
-        for bath in other_bath:
-            self.weight += bath.weight
-            self.pigment += bath.pigment
-            self.binder += bath.binder
+    exit_button = tk.Button(root, text="Exit", command=root.destroy)
+    exit_button.grid(row=1, column=2, columnspan=2, pady=10)
+
+    # version label
+    info_label = tk.Label(root, text=f'{program_title} {version} {release_date}')
+    info_label.grid(row=5, column=0, columnspan=7, pady=10)
+
+    root.mainloop()
+
+
+if __name__ == "__main__":
+
+    results = optimize(Bath(5000, 0.25, 0.10),
+                      Bath(0, 0.20, 0.12),
+                      Bath(0, 0.26, 0),
+                      Bath(0, 0.50, 1),
+                      Bath(0, 0, 0)
+                      )
+
+    for result in results:
+        print(result)
+
+    # interface_window()

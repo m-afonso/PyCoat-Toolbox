@@ -1,10 +1,11 @@
 class Bath:
+
     def __init__(self,
-                 bath_weight: int | float,
+                 bath_weight: int | float | None,
                  bath_nv: int | float,
                  bath_pb: int | float):
 
-        if not isinstance(bath_weight, (int, float)):
+        if not isinstance(bath_weight, (int, float, type(None))):
             raise TypeError('Bath weight must be an integer or float.')
 
         if not isinstance(bath_nv, (int, float)):
@@ -17,22 +18,32 @@ class Bath:
         elif bath_pb < 0:
             raise ValueError('Bath PB must be non-negative.')
 
+        if bath_weight is None:
+            bath_weight = 0
+
         self.weight = float(bath_weight)
-        self.pigment = float((bath_nv * bath_pb) / (1 + bath_pb)) * bath_weight
-        self.binder = float(bath_nv * bath_weight - self.pigment)
+        self.pigment = float((bath_nv * bath_pb) / (1 + bath_pb))
+        self.binder = float(bath_nv - self.pigment)
 
     def __str__(self):
-        return f'Weight: {self.weight}, NV: {self.nv():.2f}, PB: {self.pb():.2f}'
+        return (f'Weight: {self.weight:.4f} | NV: {self.nv():.4f} | PB: {self.pb():.4f} | '
+                f'Pigments: {self.pigment:.4f} | Binder: {self.binder:.4f}')
+
+    # def pigment(self):
+    #     return self.__pigment * self.weight
+
+    # def binder(self):
+    #     return self.__binder * self.weight
 
     def pb(self):
         """
-        Calculates the Pigmento t Binder (P/B) ratio.
+        Calculates the Pigmento to Binder (P/B) ratio.
 
         :return: float
         """
 
         if self.binder == 0:
-            return 0
+            return .0
 
         return self.pigment / self.binder
 
@@ -44,10 +55,9 @@ class Bath:
         if self.weight == 0:
             return 0
 
-        return (self.pigment + self.binder) / self.weight
+        return self.pigment + self.binder
 
-    def remove_bath(self,
-                    new_bath_weight: int | float = 0):
+    def remove_bath(self, new_bath_weight: int | float = 0):
         """
         Removes an aliquot of the bath.
         :param new_bath_weight:
@@ -61,16 +71,44 @@ class Bath:
 
         aliquot = Bath(new_bath_weight, bath_nv=self.nv(), bath_pb=self.pb())
 
-        self.pigment -= aliquot.pigment
-        self.binder -= aliquot.binder
         self.weight -= aliquot.weight
 
         return aliquot
 
-    def add_bath(self,
-                 *other_bath):
+    def add_bath(self, *other_bath):
 
         for bath in other_bath:
-            self.weight += bath.weight
-            self.pigment += bath.pigment
-            self.binder += bath.binder
+            total_weight = self.weight + bath.weight
+            self.weight = total_weight
+            self.pigment = ((self.pigment * self.weight) + (bath.pigment * bath.weight)) / total_weight
+            self.binder = ((self.binder * self.weight) + (bath.binder * bath.weight)) / total_weight
+
+        return self
+
+    def add_pigment(self, amount_of_pigment: int | float):
+        total_weight = self.weight + amount_of_pigment
+        self.pigment = (amount_of_pigment + self.pigment * self.weight) / total_weight
+        self.binder = (self.binder * self.weight) / total_weight
+        self.weight = total_weight
+
+    def add_binder(self, amount_of_binder: int | float):
+        total_weight = self.weight + amount_of_binder
+        self.binder = (amount_of_binder + self.binder * self.weight) / total_weight
+        self.pigment = (self.pigment * self.weight) / total_weight
+        self.weight = total_weight
+
+    # def change_weight(self, new_weight):
+    #     """
+    #     Changes the weight of the bath.
+    #
+    #     Automatically adjusts pigment and binder.
+    #     :param new_weight:
+    #     """
+    #     self.weight = new_weight
+
+
+if __name__ == '__main__':
+    bath = Bath(1000, 0.25, 0)
+    print(bath)
+    bath.add_binder(1000)
+    print(bath)
