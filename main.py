@@ -3,18 +3,8 @@ import numpy as np
 from typing import *
 from bath import Bath
 import tkinter as tk
-
-
-def optimize(target_bath: Bath,
-             initial_bath: Bath,
-             resin: Bath,
-             paste: Bath,
-             water: Bath,
-             target_weight: bool = True,
-             paste_min: int | float = 0):
-
-    return None
-
+from scipy.optimize import minimize
+from adjustment import adjust_bath
 
 def interface_window():
     program_title = 'AutoPB'
