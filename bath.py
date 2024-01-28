@@ -23,7 +23,7 @@ class Bath:
 
         self.weight = float(bath_weight)
         self.pigment = float((bath_nv * bath_pb) / (1 + bath_pb))
-        self.binder = float(bath_nv - self.pigment)
+        self.binder = bath_nv - self.pigment
 
     def __str__(self):
         return (f'Weight: {self.weight:.4f} | NV: {self.nv():.4f} | PB: {self.pb():.4f} | '
@@ -57,6 +57,9 @@ class Bath:
 
         return self.pigment + self.binder
 
+    def volatiles(self):
+        return 1 - self.pigment - self.binder
+
     def remove_bath(self, new_bath_weight: int | float = 0):
         """
         Removes an aliquot of the bath.
@@ -77,13 +80,20 @@ class Bath:
 
     def add_bath(self, *other_bath):
 
-        for bath in other_bath:
-            total_weight = self.weight + bath.weight
-            self.weight = total_weight
-            self.pigment = ((self.pigment * self.weight) + (bath.pigment * bath.weight)) / total_weight
-            self.binder = ((self.binder * self.weight) + (bath.binder * bath.weight)) / total_weight
+        weight_accumulator = self.weight
+        pigment_accumulator = self.weight * self.pigment
+        binder_accumulator = self.weight * self.binder
 
-        return self
+        for bath in other_bath:
+            weight_accumulator += bath.weight
+            pigment_accumulator += bath.pigment * bath.weight
+            binder_accumulator += bath.binder * bath.weight
+
+        self.weight = weight_accumulator
+        self.pigment = pigment_accumulator / weight_accumulator
+        self.binder = binder_accumulator / weight_accumulator
+
+        return None
 
     def add_pigment(self, amount_of_pigment: int | float):
         total_weight = self.weight + amount_of_pigment
@@ -91,11 +101,15 @@ class Bath:
         self.binder = (self.binder * self.weight) / total_weight
         self.weight = total_weight
 
+        return self
+
     def add_binder(self, amount_of_binder: int | float):
         total_weight = self.weight + amount_of_binder
         self.binder = (amount_of_binder + self.binder * self.weight) / total_weight
         self.pigment = (self.pigment * self.weight) / total_weight
         self.weight = total_weight
+
+        return self
 
     # def change_weight(self, new_weight):
     #     """

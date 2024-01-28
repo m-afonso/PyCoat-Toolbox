@@ -3,17 +3,8 @@ import numpy as np
 from typing import *
 from bath import Bath
 import tkinter as tk
-
-
-def optimize(target_bath: Bath,
-             initial_bath: Bath,
-             resin: Bath,
-             paste: Bath,
-             water: Bath,
-             target_weight: bool = True,
-             paste_min: int | float = 0):
-
-    return None
+from scipy.optimize import minimize
+from adjustment import adjust_bath
 
 
 def interface_window():
@@ -84,15 +75,4 @@ def interface_window():
 
 
 if __name__ == "__main__":
-
-    results = optimize(Bath(5000, 0.25, 0.10),
-                      Bath(0, 0.20, 0.12),
-                      Bath(0, 0.26, 0),
-                      Bath(0, 0.50, 1),
-                      Bath(0, 0, 0)
-                      )
-
-    for result in results:
-        print(result)
-
-    # interface_window()
+    interface_window()
