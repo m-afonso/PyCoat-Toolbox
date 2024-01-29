@@ -1,9 +1,9 @@
 class Bath:
 
     def __init__(self,
-                 bath_weight: int | float | None,
-                 bath_nv: int | float,
-                 bath_pb: int | float):
+                 bath_weight: int | float | None = None,
+                 bath_nv: int | float = 0,
+                 bath_pb: int | float = 0):
 
         if not isinstance(bath_weight, (int, float, type(None))):
             raise TypeError('Bath weight must be an integer or float.')
@@ -26,8 +26,8 @@ class Bath:
         self.binder = bath_nv - self.pigment
 
     def __str__(self):
-        return (f'Weight: {self.weight:.4f} | NV: {self.nv():.4f} | PB: {self.pb():.4f} | '
-                f'Pigments: {self.pigment:.4f} | Binder: {self.binder:.4f}')
+        return (f'W: {self.weight:.4f} | NV: {self.nv():.4f} | PB: {self.pb():.4f} | '
+                f'P: {self.pigment:.4f} | B: {self.binder:.4f}')
 
     # def pigment(self):
     #     return self.__pigment * self.weight

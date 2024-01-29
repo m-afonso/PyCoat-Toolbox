@@ -44,7 +44,12 @@ def adjust_bath(target_bath: Bath,
     test_bath = copy(initial_bath)
     test_bath.add_bath(paste, resin, water)
 
-    return target_bath, initial_bath, resin, paste, water, test_bath
+    return {'target_bath': target_bath,
+            'initial_bath': initial_bath,
+            'resin': resin,
+            'paste': paste,
+            'water': water,
+            'test_bath': test_bath}
 
 
 if __name__ == '__main__':
@@ -54,7 +59,6 @@ if __name__ == '__main__':
                           Bath(0, 0.5, 10),
                           Bath(0, 0, 0))
 
-    for result in results:
-        print(result)
+    for result in results.keys():
+        print(result, results[result])
 
-    pass
