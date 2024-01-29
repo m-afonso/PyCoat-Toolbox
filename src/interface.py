@@ -1,10 +1,6 @@
-from copy import copy
-import numpy as np
-from typing import *
-from bath import Bath
+from src.bath import Bath
 import tkinter as tk
-from scipy.optimize import minimize
-from adjustment import adjust_bath
+from src.adjustment import adjust_bath
 
 
 def interface_window():
@@ -20,8 +16,6 @@ def interface_window():
 
     def on_submit():
         nonlocal target_bath, initial_bath, paste, resin, water
-        for entry in entries:
-            print(entry.get())
 
         try:
             target_bath = Bath(float(target_bath_frame_w_entry.get()),
@@ -63,9 +57,6 @@ def interface_window():
 
     root = tk.Tk()
     root.title(program_title)
-
-    entries = []
-    labels = []
 
     # Criação da caixa "Target Bath"
     target_bath_frame = tk.Frame(root, padx=10, pady=10, borderwidth=2, relief="solid")
@@ -202,6 +193,7 @@ def interface_window():
     info_label.grid(row=5, column=0)
 
     root.mainloop()
+
 
 if __name__ == "__main__":
     interface_window()

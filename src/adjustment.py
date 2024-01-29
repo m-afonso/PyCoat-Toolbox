@@ -1,4 +1,4 @@
-from bath import Bath
+from src.bath import Bath
 from copy import copy
 
 
@@ -50,7 +50,6 @@ def adjust_bath(target_bath: Bath,
             'paste': paste,
             'water': water,
             'test_bath': test_bath}
-
 
 if __name__ == '__main__':
     results = adjust_bath(Bath(5000, 0.25, 0.10),
