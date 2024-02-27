@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import numpy as np
 
+
 def nv_interface(master_window=None):
 
     if master_window is None:
