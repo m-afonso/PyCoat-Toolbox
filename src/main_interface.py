@@ -4,7 +4,7 @@ from src.interface_nv import *
 
 
 def main_interface():
-    program_title = 'Coatings Calculator'
+    program_title = 'PyCoat Wizard'
     version = 'v0.0.1'
     release_date = '2024'
 
