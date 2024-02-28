@@ -1,16 +1,10 @@
-from copy import copy
-import numpy as np
-from typing import *
-from bath import Bath
+from src.bath import Bath
 import tkinter as tk
-from scipy.optimize import minimize
-from adjustment import adjust_bath
+from tkinter import ttk
+from src.adjustment import adjust_bath
 
 
-def interface_window():
-    program_title = 'AutoPB'
-    version = 'v0.0.1'
-    release_date = '20240128'
+def pb_nv_adj_interface_window(master_window=None):
 
     target_bath = Bath()
     initial_bath = Bath()
@@ -20,8 +14,6 @@ def interface_window():
 
     def on_submit():
         nonlocal target_bath, initial_bath, paste, resin, water
-        for entry in entries:
-            print(entry.get())
 
         try:
             target_bath = Bath(float(target_bath_frame_w_entry.get()),
@@ -61,14 +53,15 @@ def interface_window():
         except:
             pass
 
-    root = tk.Tk()
-    root.title(program_title)
+    if master_window is None:
+        interface_pb_nv_adj_window = tk.Tk()
+    else:
+        interface_pb_nv_adj_window = tk.Toplevel(master=master_window)
 
-    entries = []
-    labels = []
+    interface_pb_nv_adj_window.title('P/B and NV Adjustment')
 
     # Criação da caixa "Target Bath"
-    target_bath_frame = tk.Frame(root, padx=10, pady=10, borderwidth=2, relief="solid")
+    target_bath_frame = tk.Frame(interface_pb_nv_adj_window, padx=10, pady=10, borderwidth=2, relief="solid")
     target_bath_label = tk.Label(target_bath_frame, text="Target Bath", font=("Helvetica", 12, "bold"))
     target_bath_label.grid(row=0, column=0, columnspan=2, pady=5)
 
@@ -92,11 +85,11 @@ def interface_window():
 
     target_bath_frame.grid(row=0, column=0, padx=10, pady=10)
 
-    symbol_label = tk.Label(root, text="=")
+    symbol_label = tk.Label(interface_pb_nv_adj_window, text="=")
     symbol_label.grid(row=0, column=1)
 
     # Criação da caixa "Initial Bath"
-    initial_bath_frame = tk.Frame(root, padx=10, pady=10, borderwidth=2, relief="solid")
+    initial_bath_frame = tk.Frame(interface_pb_nv_adj_window, padx=10, pady=10, borderwidth=2, relief="solid")
     initial_bath_label = tk.Label(initial_bath_frame, text="Initial Bath", font=("Helvetica", 12, "bold"))
     initial_bath_label.grid(row=0, column=0, columnspan=2, pady=5)
 
@@ -121,11 +114,11 @@ def interface_window():
 
     initial_bath_frame.grid(row=0, column=2, padx=10, pady=10)
 
-    symbol_label = tk.Label(root, text="+")
+    symbol_label = tk.Label(interface_pb_nv_adj_window, text="+")
     symbol_label.grid(row=0, column=3)
 
     # Criação da caixa "Paste"
-    paste_frame = tk.Frame(root, padx=10, pady=10, borderwidth=2, relief="solid")
+    paste_frame = tk.Frame(interface_pb_nv_adj_window, padx=10, pady=10, borderwidth=2, relief="solid")
     paste_label = tk.Label(paste_frame, text="Paste", font=("Helvetica", 12, "bold"))
     paste_label.grid(row=0, column=0, columnspan=2, pady=5)
 
@@ -150,11 +143,11 @@ def interface_window():
 
     paste_frame.grid(row=0, column=4, padx=10, pady=10)
 
-    symbol_label = tk.Label(root, text="+")
+    symbol_label = tk.Label(interface_pb_nv_adj_window, text="+")
     symbol_label.grid(row=0, column=5)
 
     # Criação da caixa "Resin"
-    resin_frame = tk.Frame(root, padx=10, pady=10, borderwidth=2, relief="solid")
+    resin_frame = tk.Frame(interface_pb_nv_adj_window, padx=10, pady=10, borderwidth=2, relief="solid")
     resin_label = tk.Label(resin_frame, text="Resin", font=("Helvetica", 12, "bold"))
     resin_label.grid(row=0, column=0, columnspan=2, pady=5)
 
@@ -173,11 +166,11 @@ def interface_window():
 
     resin_frame.grid(row=0, column=6, padx=10, pady=10)
 
-    symbol_label = tk.Label(root, text="+")
+    symbol_label = tk.Label(interface_pb_nv_adj_window, text="+")
     symbol_label.grid(row=0, column=7)
 
     # Criação da caixa "Water"
-    water_frame = tk.Frame(root, padx=10, pady=10, borderwidth=2, relief="solid")
+    water_frame = tk.Frame(interface_pb_nv_adj_window, padx=10, pady=10, borderwidth=2, relief="solid")
     water_label = tk.Label(water_frame, text="Water", font=("Helvetica", 12, "bold"))
     water_label.grid(row=0, column=0, columnspan=2, pady=5)
 
@@ -191,17 +184,14 @@ def interface_window():
     water_frame.grid(row=0, column=8, padx=10, pady=10)
 
     # Botões
-    submit_button = tk.Button(root, text="Submit", command=on_submit)
-    submit_button.grid(row=1, column=0, columnspan=2, pady=10)
+    submit_button = tk.Button(interface_pb_nv_adj_window, text="Submit", command=on_submit, width=15)
+    submit_button.grid(row=1, column=0, columnspan=2, pady=25, padx=10)
 
-    exit_button = tk.Button(root, text="Exit", command=root.destroy)
-    exit_button.grid(row=1, column=2, columnspan=2, pady=10)
+    # exit_button = ttk.Button(interface_pb_nv_adj_window, text="Exit", command=interface_pb_nv_adj_window.destroy)
+    # exit_button.grid(row=1, column=2, columnspan=2, pady=10)
 
-    # version label
-    info_label = tk.Label(root, text=f'{program_title} {version} {release_date}')
-    info_label.grid(row=5, column=0)
-
-    root.mainloop()
+    if master_window is None:
+        interface_pb_nv_adj_window.mainloop()
 
 if __name__ == "__main__":
-    interface_window()
+    pb_nv_adj_interface_window()
