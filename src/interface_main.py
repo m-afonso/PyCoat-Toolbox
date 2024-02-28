@@ -5,8 +5,8 @@ from src.interface_module_ash_test import *
 from src.interface_module_pb import *
 def main_interface():
     program_title = 'PyCoat Wizard'
-    version = 'v0.0.1'
-    release_date = '2024'
+    version = 'v0.1.0'
+    release_date = '2024-02-28'
 
     main_interface_window = tk.Tk()
     main_interface_window.title(program_title)
