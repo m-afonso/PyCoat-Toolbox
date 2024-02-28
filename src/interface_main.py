@@ -14,7 +14,7 @@ def main_interface():
     # general section
     general_section_label = tk.Label(main_interface_window, text=f'General Modules')
 
-    nv_button = tk.Button(main_interface_window, text="Non-Volatile", command=lambda: nv_interface(main_interface_window), height=2, width=25)
+    nv_button = tk.Button(main_interface_window, text="Solids Content", command=lambda: nv_interface(main_interface_window), height=2, width=25)
 
     # electrocoat section
     ed_section_label = tk.Label(main_interface_window, text='Electrocoat Modules')

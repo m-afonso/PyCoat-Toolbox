@@ -10,7 +10,7 @@ def nv_interface(master_window=None):
     else:
         nv_interface_window = tk.Toplevel(master_window)
 
-    nv_interface_window.title('Non-volatile Calculator')
+    nv_interface_window.title('Solids Content')
 
     initial_row = 1
     initial_column = 0
