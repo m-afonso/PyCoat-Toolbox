@@ -12,12 +12,12 @@ def main_interface():
     main_interface_window.title(program_title)
 
     # general section
-    general_section_label = tk.Label(main_interface_window, text=f'General')
+    general_section_label = tk.Label(main_interface_window, text=f'General Modules')
 
     nv_button = tk.Button(main_interface_window, text="Non-Volatile", command=lambda: nv_interface(main_interface_window), height=2, width=25)
 
     # electrocoat section
-    ed_section_label = tk.Label(main_interface_window, text='Electrocoat')
+    ed_section_label = tk.Label(main_interface_window, text='Electrocoat Modules')
     ash_button = tk.Button(main_interface_window, text='Ash Test', command=lambda: ash_test_interface(main_interface_window), height=2, width=25)
     pb_button = tk.Button(main_interface_window, text="Pigment-to-binder ratio", command=lambda: pb_interface(main_interface_window), height=2, width=25)
 
@@ -44,8 +44,8 @@ def main_interface():
     pb_nv_adj_button.grid(row=3, column=1, pady=10, padx=50)
 
 
-    exit_button.grid(row=30, column=0, pady=10, padx=50)
-    info_label.grid(row=31, column=0, pady=10, padx=50)
+    # exit_button.grid(row=30, column=0, pady=10, padx=50)
+    info_label.grid(row=31, column=0, pady=20, padx=50, columnspan=2)
 
     main_interface_window.mainloop()
 
