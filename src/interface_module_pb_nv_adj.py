@@ -184,11 +184,11 @@ def pb_nv_adj_interface_window(master_window=None):
     water_frame.grid(row=0, column=8, padx=10, pady=10)
 
     # Botões
-    submit_button = tk.Button(interface_pb_nv_adj_window, text="Submit", command=on_submit)
-    submit_button.grid(row=1, column=0, columnspan=2, pady=10)
+    submit_button = tk.Button(interface_pb_nv_adj_window, text="Submit", command=on_submit, width=15)
+    submit_button.grid(row=1, column=0, columnspan=2, pady=25, padx=10)
 
-    exit_button = ttk.Button(interface_pb_nv_adj_window, text="Exit", command=interface_pb_nv_adj_window.destroy)
-    exit_button.grid(row=1, column=2, columnspan=2, pady=10)
+    # exit_button = ttk.Button(interface_pb_nv_adj_window, text="Exit", command=interface_pb_nv_adj_window.destroy)
+    # exit_button.grid(row=1, column=2, columnspan=2, pady=10)
 
     if master_window is None:
         interface_pb_nv_adj_window.mainloop()
