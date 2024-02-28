@@ -60,8 +60,6 @@ def ash_test_interface(master_window=None):
         mean_entry = tk.Entry(ash_test_interface_window, state='readonly', justify='center')
         mean_entry.grid(row=initial_row + len(replicates_list) + 1, column=initial_column + 4, padx=padx_value)
 
-
-
         return replicates_list, mean_entry
 
     replicates_number = 5
