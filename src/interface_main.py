@@ -1,7 +1,7 @@
 import tkinter as tk
-from src.interface_pb_nv_adj import *
-from src.interface_nv import *
-from src.interface_ash_test import *
+from src.interface_module_pb_nv_adj import *
+from src.interface_module_nv import *
+from src.interface_module_ash_test import *
 
 def main_interface():
     program_title = 'PyCoat Wizard'
