@@ -2,7 +2,7 @@ import tkinter as tk
 from src.interface_module_pb_nv_adj import *
 from src.interface_module_nv import *
 from src.interface_module_ash_test import *
-
+from src.interface_module_pb import *
 def main_interface():
     program_title = 'PyCoat Wizard'
     version = 'v0.0.1'
@@ -19,7 +19,7 @@ def main_interface():
     # electrocoat section
     ed_section_label = tk.Label(main_interface_window, text='Electrocoat')
     ash_button = tk.Button(main_interface_window, text='Ash Test', command=lambda: ash_test_interface(main_interface_window), height=2, width=25)
-    pb_button = tk.Button(main_interface_window, text="Pigment-to-binder ratio", command=None, height=2, width=25)
+    pb_button = tk.Button(main_interface_window, text="Pigment-to-binder ratio", command=lambda: pb_interface(main_interface_window), height=2, width=25)
 
     pb_nv_adj_button = tk.Button(
         main_interface_window,
