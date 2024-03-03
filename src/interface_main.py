@@ -5,58 +5,54 @@ from src.interface_module_pb import *
 
 
 def main_interface():
-    program_title = 'PyCoat Wizard'
-    version = 'v0.1.0'
-    release_date = '2024-02-28'
+    program_title = "PyCoat Wizard"
+    version = "v0.1.0"
+    release_date = "2024-02-28"
 
     main_interface_window = tk.Tk()
     main_interface_window.title(program_title)
 
     # general section, buttons
-    general_section_label = tk.Label(
-        main_interface_window,
-        text=f'General Modules'
-    )
+    general_section_label = tk.Label(main_interface_window, text=f"General Modules")
 
     nv_button = tk.Button(
         main_interface_window,
         text="Solids Content",
         command=lambda: nv_interface(main_interface_window),
-        height=2, width=25
+        height=2,
+        width=25,
     )
 
     # electrocoat section, buttons
-    ed_section_label = tk.Label(
-        main_interface_window,
-        text='Electrocoat Modules'
-    )
+    ed_section_label = tk.Label(main_interface_window, text="Electrocoat Modules")
     ash_button = tk.Button(
         main_interface_window,
-        text='Ash Test',
+        text="Ash Test",
         command=lambda: ash_test_interface(main_interface_window),
-        height=2, width=25
+        height=2,
+        width=25,
     )
     pb_button = tk.Button(
         main_interface_window,
         text="Pigment-to-binder ratio",
         command=lambda: pb_interface(main_interface_window),
-        height=2, width=25
+        height=2,
+        width=25,
     )
     pb_nv_adj_button = tk.Button(
         main_interface_window,
         text="P/B and NV Adjustment",
         command=lambda: pb_nv_adj_interface_window(main_interface_window),
-        height=2, width=25
+        height=2,
+        width=25,
     )
 
     # window control section
     # exit_button = tk.Button(main_interface_window, text="Exit", command=main_interface_window.destroy)
 
-
     # infos section
     info_label = tk.Label(
-        main_interface_window,
-        text=f'{program_title} {version} {release_date}'
+        main_interface_window, text=f"{program_title} {version} {release_date}"
     )
 
     # grid settings
@@ -72,5 +68,5 @@ def main_interface():
     main_interface_window.mainloop()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main_interface()
