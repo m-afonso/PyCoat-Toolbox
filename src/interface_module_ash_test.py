@@ -3,7 +3,7 @@ import numpy as np
 from tkinter import messagebox
 from typing import List, Dict, Tuple
 from src.generate_replicates_elements import *
-from src.procedure_text import *
+from src.procedure_textbox import *
 
 
 def ash_test_interface(master_window: tk.Tk | None = None) -> None:
@@ -37,7 +37,7 @@ def ash_test_interface(master_window: tk.Tk | None = None) -> None:
     run_button.grid(row=initial_row + replicates_number + 6, column=0, pady=25, padx=10)
 
     # procedure widget
-    procedure_path = "../procedures/ashes_test.txt"
+    procedure_path = "procedures/ashes_test.txt"
     procedure_textbox(ash_test_interface_window,
                       _row=(initial_row + replicates_number + 7),
                       _column=0,
