@@ -4,6 +4,28 @@ from tkinter import messagebox
 from typing import List, Dict, Tuple
 
 
+def nv_ashes_test(empty: float | int,
+                  sample: float | int,
+                  final: float | int) -> float | None:
+
+    if not isinstance(empty, (float, int)):
+        raise TypeError('Empty weight must be a decimal or integer number.')
+
+    if not isinstance(sample, (float, int)):
+        raise TypeError('Final weight must be a decimal or integer number.')
+
+    if not isinstance(sample, (float, int)):
+        raise TypeError('Sample weight must be a decimal or integer number.')
+
+    if final < empty:
+        raise ValueError("\n\nFinal weight must be greater or equal to empty weight.")
+
+    if sample <= 0:
+        raise ValueError("\n\nSample weight must be greater than zero.")
+
+    return (final-empty)/sample
+
+
 def generate_replicates_elements(
         interface_window,
         _replicates_number: int = 5,

@@ -5,7 +5,7 @@ from typing import List, Dict, Tuple
 from src.generate_replicates_elements import *
 
 
-def nv_interface(master_window=None):
+def nv_interface(master_window: tk.Tk | None = None) -> None:
 
     if master_window is None:
         nv_interface_window = tk.Tk()
@@ -48,7 +48,7 @@ def nv_interface(master_window=None):
         text="Run",
         command=lambda: get_values_replicates_elements(replicates_list,
                                                        mean_entry,
-                                                       nv_test),
+                                                       nv_ashes_test),
         width=15
     )
 
@@ -56,28 +56,6 @@ def nv_interface(master_window=None):
 
     if master_window is None:
         nv_interface_window.mainloop()
-
-
-def nv_test(empty: float | int,
-            sample: float | int,
-            final: float | int) -> float | None:
-
-    if not isinstance(empty, (float, int)):
-        raise TypeError('Empty weight must be a decimal or integer number.')
-
-    if not isinstance(sample, (float, int)):
-        raise TypeError('Final weight must be a decimal or integer number.')
-
-    if not isinstance(sample, (float, int)):
-        raise TypeError('Sample weight must be a decimal or integer number.')
-
-    if final < empty:
-        raise ValueError("\n\nFinal weight must be greater or equal to empty weight.")
-
-    if sample <= 0:
-        raise ValueError("\n\nSample weight must be greater than zero.")
-
-    return (final-empty)/sample
 
 
 if __name__ == '__main__':
