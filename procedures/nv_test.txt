@@ -1,0 +1,11 @@
+Procedure:
+
+    1. Begin by weighing the cup when it is empty. (M0)
+    2. Measure out 0.8-1.0g of the sample and place it into the cup. (M1)
+    3. Place the crucible with the sample in an oven, at test conditions.
+    5. Once the process is complete, remove the cup from the oven and allow it to cool in a desiccator.
+    6. Finally, weigh the cup with the remaining residues to complete the procedure. (M2)
+
+    NV% = ((M2 - M0) / M1) * 100
+
+    Reference: Brüggemann, Michael, and Anja Rach. Electrocoat. Vincentz Network, 2020.

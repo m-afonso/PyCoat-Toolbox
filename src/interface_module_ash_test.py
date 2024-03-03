@@ -25,25 +25,6 @@ def ash_test_interface(master_window: tk.Tk | None = None) -> None:
         _head_titles=('Empty Crucible (M0)', 'Sample (M1)', 'Residue + Crucible (M2)', 'Ashes%')
     )
 
-    # procedure widget
-    procedure_label = tk.Label(ash_test_interface_window, justify='left',
-                               text='''
-                               Procedure:
-                                 
-                               1. Begin by weighing the crucible when it is empty. (M0)
-                               2. Measure out 3-5g of the sample and place it into the crucible. (M1)
-                               3. Place the crucible with the sample in an oven, either for 1h@120°C or for 3h@105°C.
-                               4. Transfer the crucible and its contents to an ashing furnace and heat for 2h@600°C.
-                               5. Once the process is complete, remove the crucible from the furnace and allow it to cool in a desiccator.
-                               6. Finally, weigh the crucible with the remaining residues to complete the procedure. (M2)
-                               
-                               Ashes% = ((M2 - M0) / M1) * 100
-                               
-                               Reference: Brüggemann, Michael, and Anja Rach. Electrocoat. Vincentz Network, 2020.
-                               '''.replace('                               ', '    '))
-
-    procedure_label.grid(row=initial_row + replicates_number + 6, column=0, pady=10, columnspan=5, sticky="W")
-
     run_button = tk.Button(
         ash_test_interface_window,
         text="Run",
@@ -52,8 +33,18 @@ def ash_test_interface(master_window: tk.Tk | None = None) -> None:
                                                        nv_ashes_test),
         width=15
     )
+    run_button.grid(row=initial_row + replicates_number + 6, column=0, pady=25, padx=10)
 
-    run_button.grid(row=initial_row + replicates_number + 8, column=0, pady=25, padx=10)
+    # procedure widget
+    procedure_path = "../procedures/ashes_test.txt"
+    with open(procedure_path, 'r', encoding="utf-8") as file:
+        procedure_text = file.read()
+
+    procedure_label = tk.Label(ash_test_interface_window,
+                               justify='left',
+                               text=procedure_text)
+
+    procedure_label.grid(row=initial_row + replicates_number + 7, column=0, pady=10, columnspan=5, sticky="W")
 
     if master_window is None:
         ash_test_interface_window.mainloop()
