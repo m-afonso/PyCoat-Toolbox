@@ -1,0 +1,8 @@
+Instructions:
+
+    1. Input the desired weight of the target bath.
+    2. Enter the target and initial bath parameters for NV% (solid content/non-volatile) and P/B% (pigment-to-binder ratio).
+    3. Provide the parameters of binder and pigment composition for paste and resin.
+    4. Click "Run" to obtain the necessary amounts of each component for adjusting the initial bath.
+
+    Attention: All entries must be numeric and equal to or greater than zero values.

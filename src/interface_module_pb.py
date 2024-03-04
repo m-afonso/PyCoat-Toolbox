@@ -9,46 +9,60 @@ def pb_interface(master_window=None):
     else:
         pb_interface_window = tk.Toplevel(master_window)
 
-    pb_interface_window.title('Pigment-to-binder ratio')
+    pb_interface_window.title("Pigment-to-binder ratio")
 
-    corrective_factor_label = tk.Label(pb_interface_window, text='Corrective Factor')
+    corrective_factor_label = tk.Label(pb_interface_window, text="Corrective Factor")
     corrective_factor_label.grid(row=0, column=0, padx=25, pady=25)
-    corrective_factor_entry = tk.Entry(pb_interface_window, justify='center')
-    corrective_factor_entry.insert(0, '1.0')
+    corrective_factor_entry = tk.Entry(pb_interface_window, justify="center")
+    corrective_factor_entry.insert(0, "1.0")
     corrective_factor_entry.grid(row=0, column=1, padx=25, pady=25)
 
-    nv_label = tk.Label(pb_interface_window, text='NV%')
+    nv_label = tk.Label(pb_interface_window, text="NV%")
     nv_label.grid(row=1, column=0, padx=25, pady=25)
-    nv_entry = tk.Entry(pb_interface_window, justify='center')
+    nv_entry = tk.Entry(pb_interface_window, justify="center")
     nv_entry.grid(row=1, column=1, padx=25, pady=25)
 
-    ash_label = tk.Label(pb_interface_window, text='Ashes%')
+    ash_label = tk.Label(pb_interface_window, text="Ashes%")
     ash_label.grid(row=2, column=0, padx=25, pady=25)
-    ash_entry = tk.Entry(pb_interface_window, justify='center')
+    ash_entry = tk.Entry(pb_interface_window, justify="center")
     ash_entry.grid(row=2, column=1, padx=25, pady=25)
 
-    pb_label = tk.Label(pb_interface_window, text='P/B')
+    pb_label = tk.Label(pb_interface_window, text="P/B")
     pb_label.grid(row=3, column=0, padx=25, pady=25)
-    pb_entry = tk.Entry(pb_interface_window, justify='center', state='readonly')
+    pb_entry = tk.Entry(pb_interface_window, justify="center", state="readonly")
     pb_entry.grid(row=3, column=1, padx=25, pady=25)
 
-    run_button = tk.Button(pb_interface_window, text='Run', command=lambda: calculate_pb(), width=15)
+    run_button = tk.Button(
+        pb_interface_window, text="Run", command=lambda: calculate_pb(), width=15
+    )
     run_button.grid(row=4, column=0, pady=25, padx=10)
 
     def calculate_pb():
 
-        ash_value = float(ash_entry.get()) if str.isnumeric(ash_entry.get().replace(".", "")) else 0.0
-        nv_value = float(nv_entry.get()) if str.isnumeric(ash_entry.get().replace(".", "")) else 0.0
-        c_factor = float(corrective_factor_entry.get()) if str.isnumeric(ash_entry.get().replace(".", "")) else 0.0
+        ash_value = (
+            float(ash_entry.get())
+            if str.isnumeric(ash_entry.get().replace(".", ""))
+            else 0.0
+        )
+        nv_value = (
+            float(nv_entry.get())
+            if str.isnumeric(ash_entry.get().replace(".", ""))
+            else 0.0
+        )
+        c_factor = (
+            float(corrective_factor_entry.get())
+            if str.isnumeric(ash_entry.get().replace(".", ""))
+            else 0.0
+        )
 
         if c_factor == 0.0 or nv_value == 0:
             return
 
         pb_value = ash_value / (nv_value - ash_value) * c_factor
-        pb_entry.config(state='normal')
+        pb_entry.config(state="normal")
         pb_entry.delete(0, tk.END)
-        pb_entry.insert(0, f'{pb_value:.2f}')
-        pb_entry.config(state='disabled')
+        pb_entry.insert(0, f"{pb_value:.2f}")
+        pb_entry.config(state="disabled")
 
     # initial_row = 1
     # initial_column = 0
@@ -163,5 +177,5 @@ def pb_interface(master_window=None):
         pb_interface_window.mainloop()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pb_interface()
