@@ -9,7 +9,8 @@
 - Objects
 - Project structure
 - User interface (Tkinter)
-- Code styling (Black package). 
+- Code styling (Black package).
+- Git
 
 It serves as a collection of calculators (modules) for tests commonly used in the coating industry, particularly for electrocoat products. The toolbox includes procedures and instructions.
 
