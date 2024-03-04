@@ -2,7 +2,6 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 # PyCoat Toolbox
-___
 
 **PyCoat Toolbox** is a personal project aimed at studying various programming concepts, including:
 
