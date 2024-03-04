@@ -5,9 +5,9 @@ from src.interface_module_pb import *
 
 
 def main_interface():
-    program_title = "PyCoat Wizard"
-    version = "v0.1.0"
-    release_date = "2024-02-28"
+    program_title = "PyCoat Toolbox"
+    version = "v0.2.0"
+    release_date = "2024-03-04"
 
     main_interface_window = tk.Tk()
     main_interface_window.title(program_title)
